@@ -11,28 +11,28 @@ const videoSchema = mongoose.Schema({
         maxlength: 50
     },
     description: {
-        type: String
+        type: String,
     },
     privacy: {
-        type: Number
+        type: Number,
     },
     filePath: {
-        type: String
+        type: String,
     },
     category: {
-        type: String
+        type: String,
     },
     views: {
         type: Number,
         default: 0
     },
     duration: {
-        type: String
+        type: String,
     },
     thumbnail: {
-        type: String
+        type: String,
     }
-}, { timestapms: true})
+}, { timestapms: true })
 // 만든 날짜와 업데이트한 날짜가 표시 됨
 
 
