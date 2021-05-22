@@ -9,21 +9,19 @@ const {Meta} = Card;
 
 
 function LandingPage() {
-    const [Video, setVideo] = useState([])
+    const [Videos, setVideos] = useState([])
     useEffect(() => {
         Axios.get('/api/video/getVideos')
         .then(response => {
             if (response.data.success) {
                 console.log(response.data.videos)
-                setVideo(response.data.videos)
-                console.log('듀레이션')
-                console.log(response.data.duration)
+                setVideos(response.data.videos)
             } else {
                 alert('비디오 가져오기를 실패했습니다.')
             }
         })
     }, [])
-    const renderCards = Video.map((video, index) => {
+    const renderCards = Videos.map((video, index) => {
         var minutes = Math.floor(video.duration / 60);
         var seconds = Math.floor(video.duration - minutes * 60);
         
@@ -53,7 +51,7 @@ function LandingPage() {
     })
     return (
         <div style={{width: '85%', margin: '3rem auto'}}>
-            <Title level={2}> Recommended </Title>
+            <Title level={2}> 추천 영상 </Title>
             <hr />
             <Row gutter={16}>
                 {renderCards}
