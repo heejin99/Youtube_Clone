@@ -98,14 +98,16 @@ router.post("/uploadVideo", (req, res) => {
 });
 
 
-// router.post("/getVideo", (req, res) => {
+router.post("/getVideo", (req, res) => {
+    // 비디오 가져오기
+    Video.findOne({ "_id" : req.body.videoId })
+    .populate('writer')
+    .exec((err, video) => {
+        if(err) return res.status(400).send(err);
+        res.status(200).json({ success: true, video})
+    })
+});
 
-//     Video.findOne({ "_id" : req.body.videoId })
-//     .populate('writer')
-//     .exec((err, video) => {
-//         if(err) return res.status(400).send(err);
-//         res.status(200).json({ success: true, video })
-//     })
-// });
+
 
 module.exports = router;
