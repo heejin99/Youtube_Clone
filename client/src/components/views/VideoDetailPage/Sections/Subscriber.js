@@ -8,30 +8,6 @@ function Subscriber(props) {
 
     const [SubscribeNumber, setSubscribeNumber] = useState(0)
     const [Subscribed, setSubscribed] = useState(false)
-    
-    useEffect(() => {
-        const subscribeVariables = { userTo: userTo, userFrom: userFrom}
-        // let variable = {userTo: props.userTo, userFrom : props.userFrom}
-        Axios.post('/api/subscribe/subsribeNumber', subscribeVariables)
-            .then(response => {
-                if (response.data.success) {
-                    setSubscribeNumber(response.data.subscribeNumber)
-                } else {
-                    alert('구독자 수 정보를 받아오지 못했습니다.')
-                }
-            })
-
-       
-
-        Axios.post('/api/subscirbe/subscribed', subscribeVariables)
-            .then(response => {
-                if (response.data.success) {
-                    setSubscribed(response.data.subcribed)
-                } else {
-                    alert('정보를 받아오지 못했습니다.')
-                }
-            })
-    }, [])
 
     const onSubscribe = () => {
         let subscribeVariables = {userTo: userTo, userFrom: userFrom}
@@ -59,6 +35,32 @@ function Subscriber(props) {
                 })
         }
     }
+
+    console.log('useeEffect전', Subscribed)
+    useEffect(() => {
+        const subscribeNumberVariables = { userTo: userTo, userFrom: userFrom}
+        // let variable = {userTo: props.userTo, userFrom : props.userFrom}
+        Axios.post('/api/subscribe/subscribeNumber', subscribeNumberVariables)
+            .then(response => {
+                if (response.data.success) {
+                    setSubscribeNumber(response.data.subscribeNumber)
+                } else {
+                    alert('구독자 수 정보를 받아오지 못했습니다.')
+                }
+            })
+
+       
+
+        Axios.post('/api/subscribe/subscribed', subscribeNumberVariables)
+            .then(response => {
+                if (response.data.success) {
+                    setSubscribed(response.data.subscribed)
+                } else {
+                    alert('정보를 받아오지 못했습니다.')
+                }
+            })
+    }, [])
+    console.log('useeEffect후', Subscribed)
     return (
         <div>
             <button 

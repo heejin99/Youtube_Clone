@@ -6,12 +6,13 @@ const subscriberSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    userFrom: {
+    userFrom : {
         type: Schema.Types.ObjectId,
         ref: 'User'
     }
+
 }, { timestamps: true })
-// 만든 날짜와 업데이트 날짜 포함
+
 
 const Subscriber = mongoose.model('Subscriber', subscriberSchema);
 
