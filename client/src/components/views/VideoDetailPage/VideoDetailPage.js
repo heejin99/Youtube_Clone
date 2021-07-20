@@ -8,7 +8,7 @@ function VideoDetailPage(props) {
 
     const videoId = props.match.params.videoId
     const [Video, setVideo] = useState([])
-    const [Comments, setComments] = useState(initialState)
+    const [Comments, setComments] = useState([])
     const videoVariable = {videoId: videoId}
 
     useEffect(() => {
@@ -21,7 +21,7 @@ function VideoDetailPage(props) {
                     alert('비디오 정보를 가져오는 것을 실패했습니다.')
                 }
             })
-        axios.post('/api/comment/getComments', videoVariable)
+        axios.post('/api/comment/getComment', videoVariable)
             .then(response => {
                 if (response.data.success) {
                     setComments(response.data.comments)
@@ -32,6 +32,9 @@ function VideoDetailPage(props) {
             })
     }, [])
 
+    const refreshFunction = (newComment) => {
+        setComments(Comments.concat(newComment))
+    }
     if (Video.writer) {
 
         const subscribeButton = Video.writer_id !== localStorage.getItem('userId') && <Subscribe userTo={Video.writer._id} userFrom={localStorage.getItem('userId')}/>
@@ -52,7 +55,7 @@ function VideoDetailPage(props) {
                             <div></div>
                         </List.Item>
                         {/* Comments */}
-                        <Comment commentLists={Comments} postId={videoId}/>
+                        <Comment refreshFunction={refreshFunction} commentLists={Comments} postId={videoId}/>
                     </div>
                 </Col>
                 <Col lg={6} xs={24}>

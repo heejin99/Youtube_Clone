@@ -2,6 +2,8 @@ import Axios from 'axios'
 import React, {useState} from 'react'
 import { useSelector } from 'react-redux'
 import SingleComment from './SingleComment'
+import ReplyComment from './ReplyComment'
+
 function Comment(props) {
     const videoId = props.postId
     const user = useSelector(state => state.user)
@@ -23,6 +25,8 @@ function Comment(props) {
             .then(response => {
                 if (response.data.success) {
                     console.log(response.data.result)
+                    setcommentValue("")
+                    props.refreshFunction(response.data.result)
                 } else {
                     alert('댓글을 저장하지 못했습니다.')
                 }
@@ -38,7 +42,12 @@ function Comment(props) {
             {/* Comment Lists */}
 
             {props.commentLists && props.commentLists.map((comment, index) => (
-                < SingleComment postId={videoId}/>
+                (!comment.responseTo && 
+                    <React.Fragment>
+                        < SingleComment refreshFunction={props.refreshFunction} comment={comment} postId={videoId}/>
+                        < ReplyComment refreshFunction={props.refreshFunction} parentCommentId={comment._id} postId={videoId} commentLists={props.commentLists}/>
+                    </React.Fragment>
+                )
             ))}
             
             { /* Root Comment Form */ }
