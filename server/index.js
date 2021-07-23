@@ -17,12 +17,13 @@ const { auth } = require('./middleware/auth')
 const mongoose = require("mongoose");
 const { User } = require("./models/User");
 const { userInfo } = require("os");
+const { mongoURI } = require("./config/key");
 const connect = mongoose.connect(config.mongoURI,
   {
     useNewUrlParser: true, useUnifiedTopology: true,
     useCreateIndex: true, useFindAndModify: false
   })
-  .then(() => console.log('MongoDB Connected...', process.env.MONGO_URI))
+  .then(() => console.log('MongoDB Connected...', process.env.MONGO_URI, mongoURI, process.env.NODE_ENV))
   .catch(err => console.log(err));
 
 app.use(cors())

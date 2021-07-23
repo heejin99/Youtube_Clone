@@ -8,10 +8,10 @@
     "npm": "6.9.0"
   },
   "scripts": {
-    "start": "node server/index.js",
+    "start": "export NODE_ENV=production && node server/index.js",
     "backend": "nodemon server/index.js",
     "frontend": "npm run start --prefix client",
-    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\"",
+    "dev": "export NODE_ENV=dev && concurrently \"npm run backend\" \"npm run start --prefix client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install && npm run build"
   },
   "author": "John ahn",
