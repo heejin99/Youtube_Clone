@@ -35,7 +35,7 @@ function ReplyComment(props) {
     return (
         <div>
             {ChildCommentNumber > 0 && 
-                <p style={{fontSize: '14px', margin: 0, color: 'gray '}} onClick={HandleChange}>
+                <p style={{fontSize: '14px', marginLeft: '50px', marginBottom: '20px', color: 'gray '}} onClick={HandleChange}>
                     답글 {ChildCommentNumber}개
                 </p>
             }
