@@ -17,14 +17,13 @@ const { auth } = require('./middleware/auth')
 const mongoose = require("mongoose");
 const { User } = require("./models/User");
 const { userInfo } = require("os");
-const { mongoURI } = require("./config/key");
 const connect = mongoose.connect(config.mongoURI,
   {
     useNewUrlParser: true, useUnifiedTopology: true,
     useCreateIndex: true, useFindAndModify: false
   })
-  .then(() => console.log('MongoDB Connected...', config.mongoURI, mongoURI, process.env.NODE_ENV))
-  .catch(err => console.log('config', config.mongoURI));
+  .then(() => console.log('MongoDB Connected...', config.mongoURI))
+  .catch(err => console.log(err));
 
 app.use(cors())
 
@@ -52,12 +51,12 @@ if (process.env.NODE_ENV === "production") {
 
   // Set static folder   
   // All the javascript and css files will be read and served from this folder
-  app.use(express.static("client/build"));
-  // app.use(express.static(path.join(__dirname, 'client/build')));
+  // app.use(express.static("client/build"));
+  app.use(express.static(path.join(__dirname, 'client/build')));
   // index.html for all page routes    html or routing and naviagtion
   app.get("*", (req, res) => {
-    // res.sendFile(path.join(__dirname+'/client/build/index.html'));
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+    // res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 
